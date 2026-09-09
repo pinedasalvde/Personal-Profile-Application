@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
+		<meta charset="UTF-8" /> its a code for special creator 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Personal Profile</title>
 		<style>
 			body {
 				background-color: pink;
-			}
+			} Color of the background
 
 			.title-row {
 				display: flex;
@@ -28,7 +28,8 @@
 		<header>
 			<div class="title-row">
 				<h1>All About Me</h1>
-				<img src="https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUyemx3NWFma29idjV3cG85MGd0NnFwc2Ntb3d0ZWgwNGZsMGZ5dmc3NyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/a45i4PSgJpxHCVY5IM/200w.gif" alt="Animated profile illustration" />
+				<img src="https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUyemx3NWFma29idjV3cG85MGd0NnFwc2Ntb3d0ZWgwNGZsMGZ5dmc3NyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/a45i4PSgJpxHCVY5IM/200w.gif" alt="Animated profile illustration" /> 
+				A funny image
 			</div>
 			<p>Create and view your personal profile.</p>
 		</header>
