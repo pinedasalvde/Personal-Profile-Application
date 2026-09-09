@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Personal Profile</title>
+		<style>
+			body {
+				background-color: pink;
+			}
+
+			.title-row {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 1rem;
+			}
+
+			.title-row img {
+				width: 100px;
+				height: 100px;
+				border-radius: 0;
+				object-fit: cover;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<div class="title-row">
+				<h1>All About Me</h1>
+				<img src="https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUyemx3NWFma29idjV3cG85MGd0NnFwc2Ntb3d0ZWgwNGZsMGZ5dmc3NyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/a45i4PSgJpxHCVY5IM/200w.gif" alt="Animated profile illustration" />
+			</div>
+			<p>Create and view your personal profile.</p>
+		</header>
+
+		<main>
+			<section aria-labelledby="input-heading">
+				<h2 id="input-heading">Profile Information</h2>
+				<form>
+					<label for="name">Name</label>
+					<input id="name" name="name" type="text" />
+
+					<label for="age">Age</label>
+					<input id="age" name="age" type="number" min="1" max="120" />
+
+					<label for="email">Email</label>
+					<input id="email" name="email" type="email" />
+
+					<label for="bio">Bio</label>
+					<textarea id="bio" name="bio" rows="4"></textarea>
+
+					<button type="submit">Save this Profile</button>
+				</form>
+			</section>
+		</main>
+	</body>
+</html>
