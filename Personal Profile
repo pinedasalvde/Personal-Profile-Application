@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" /> its a code for special creator 
+		<meta charset="UTF-8" /> <!-- its a code for special creator -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Personal Profile</title>
 		<style>
 			body {
-				background-color: pink;
-			} Color of the background
+				background-color: pink; /* Color of the background */
+			}
 
 			.title-row {
 				display: flex;
@@ -22,14 +22,72 @@
 				border-radius: 0;
 				object-fit: cover;
 			}
+
+			form {
+				max-width: 500px;
+				margin: 20px auto;
+				padding: 20px;
+				background-color: rgba(255, 255, 255, 0.8);
+				border-radius: 8px;
+			}
+
+			label {
+				display: block;
+				margin-top: 15px;
+				font-weight: bold;
+			}
+
+			input,
+			textarea {
+				width: 100%;
+				padding: 8px;
+				margin-top: 5px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				box-sizing: border-box;
+				font-family: Arial, sans-serif;
+			}
+
+			button {
+				margin-top: 20px;
+				padding: 10px 20px;
+				background-color: #ff69b4;
+				color: white;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				font-size: 16px;
+				font-weight: bold;
+			}
+
+			button:hover {
+				background-color: #ff1493;
+			}
+
+			#profile-list {
+				max-width: 500px;
+				margin: 20px auto;
+				padding: 20px;
+				background-color: rgba(255, 255, 255, 0.8);
+				border-radius: 8px;
+				list-style: none;
+			}
+
+			#profile-list li {
+				padding: 10px;
+				margin: 10px 0;
+				background-color: #fff0f5;
+				border-left: 4px solid #ff69b4;
+				border-radius: 4px;
+			}
 		</style>
 	</head>
 	<body>
 		<header>
 			<div class="title-row">
 				<h1>All About Me</h1>
-				<img src="https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUyemx3NWFma29idjV3cG85MGd0NnFwc2Ntb3d0ZWgwNGZsMGZ5dmc3NyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/a45i4PSgJpxHCVY5IM/200w.gif" alt="Animated profile illustration" /> 
-				A funny image
+				<img src="https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUyemx3NWFma29idjV3cG85MGd0NnFwc2Ntb3d0ZWgwNGZsMGZ5dmc3NyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/a45i4PSgJpxHCVY5IM/200w.gif" alt="Animated profile image" />
+				<!-- A funny image -->
 			</div>
 			<p>Create and view your personal profile.</p>
 		</header>
@@ -53,6 +111,96 @@
 					<button type="submit">Save this Profile</button>
 				</form>
 			</section>
+
+			<section>
+				<h2>Saved Profiles</h2>
+				<ul id="profile-list"></ul>
+			</section>
 		</main>
+
+		<script>
+			// Module 3: array that stores every profile object
+			const profiles = [];
+
+			// Module 2: function that accepts profile data as parameters
+			// and validates it with if / else before creating a profile object
+			function createProfile(name, age, email, bio) {
+				if (!name || name.trim() === "") {
+					console.log("Validation failed: name is required.");
+					return null;
+				} else if (!age || age < 1 || age > 120) {
+					console.log("Validation failed: age must be between 1 and 120.");
+					return null;
+				} else if (!email || !email.includes("@")) {
+					console.log("Validation failed: a valid email is required.");
+					return null;
+				} else if (!bio || bio.trim() === "") {
+					console.log("Validation failed: bio is required.");
+					return null;
+				} else {
+					// Module 3: each profile is an object
+					const profile = {
+						name: name.trim(),
+						age: Number(age),
+						email: email.trim(),
+						bio: bio.trim(),
+					};
+					console.log("Profile created:", profile);
+					return profile;
+				}
+			}
+
+			// Module 3: dedicated function that adds a profile object to the array
+			function addProfile(profile) {
+				if (profile) {
+					profiles.push(profile);
+					console.log("Profiles array updated. Total profiles:", profiles.length);
+					console.log(profiles);
+					return true;
+				} else {
+					console.log("Profile not added because it was invalid.");
+					return false;
+				}
+			}
+
+			// Show profiles on the page
+			function renderProfiles() {
+				const list = document.getElementById("profile-list");
+				list.innerHTML = "";
+				profiles.forEach(function (p) {
+					const li = document.createElement("li");
+					li.textContent = p.name + " (" + p.age + ") - " + p.email + " - " + p.bio;
+					list.appendChild(li);
+				});
+			}
+
+			// Connect the form
+			document.querySelector("form").addEventListener("submit", function (event) {
+				event.preventDefault();
+				const profile = createProfile(
+					document.getElementById("name").value,
+					document.getElementById("age").value,
+					document.getElementById("email").value,
+					document.getElementById("bio").value
+				);
+				if (addProfile(profile)) {
+					renderProfiles();
+					event.target.reset();
+				}
+			});
+
+			// ---- Test calls to show your results in the console ----
+			console.log("--- Test 1: valid profile ---");
+			addProfile(createProfile("Ana", 25, "ana@example.com", "I love coding."));
+
+			console.log("--- Test 2: missing name (should fail) ---");
+			addProfile(createProfile("", 30, "bob@example.com", "Hello"));
+
+			console.log("--- Test 3: bad age (should fail) ---");
+			addProfile(createProfile("Carl", 200, "carl@example.com", "Hi"));
+
+			console.log("--- Test 4: second valid profile ---");
+			addProfile(createProfile("Dee", 22, "dee@example.com", "I enjoy art."));
+		</script>
 	</body>
 </html>
