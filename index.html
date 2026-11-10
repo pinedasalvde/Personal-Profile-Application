@@ -45,6 +45,32 @@
 				font: inherit;
 				padding: 0.75rem;
 			}
+
+			#profile-list {
+				display: grid;
+				gap: 1rem;
+				padding: 0;
+				list-style: none;
+			}
+
+			.profile-card {
+				background: white;
+				border-radius: 8px;
+				padding: 1rem;
+			}
+
+			.profile-card h3 {
+				margin: 0 0 0.5rem;
+			}
+
+			.profile-card p {
+				margin: 0.25rem 0;
+			}
+
+			#form-error {
+				color: darkred;
+				margin: 0;
+			}
 		</style>
 	</head>
 	<body>
@@ -73,8 +99,75 @@
 					<textarea id="bio" name="bio" rows="4"></textarea>
 
 					<button type="submit">Save this Profile</button>
+					<p id="form-error" role="alert"></p>
 				</form>
 			</section>
+
+			<section aria-labelledby="profiles-heading">
+				<h2 id="profiles-heading">Saved Profiles</h2>
+				<ul id="profile-list"></ul>
+			</section>
 		</main>
+
+		<script>
+			// The array is the single source of truth; the DOM is rendered from it.
+			const profiles = [
+				{ name: "Sample User", age: 25, email: "sample@example.com", bio: "Hello! This is a sample profile." },
+			];
+
+			const form = document.querySelector("form");
+			const list = document.getElementById("profile-list");
+			const errorEl = document.getElementById("form-error");
+
+			function renderProfiles() {
+				list.replaceChildren();
+				if (profiles.length === 0) {
+					const empty = document.createElement("li");
+					empty.textContent = "No profiles yet.";
+					list.append(empty);
+					return;
+				}
+				profiles.forEach((profile) => {
+					const card = document.createElement("li");
+					card.className = "profile-card";
+
+					const heading = document.createElement("h3");
+					heading.textContent = profile.name;
+
+					const age = document.createElement("p");
+					age.textContent = "Age: " + profile.age;
+
+					const email = document.createElement("p");
+					email.textContent = "Email: " + profile.email;
+
+					const bio = document.createElement("p");
+					bio.textContent = profile.bio;
+
+					card.append(heading, age, email, bio);
+					list.append(card);
+				});
+			}
+
+			form.addEventListener("submit", (event) => {
+				event.preventDefault();
+				const data = new FormData(form);
+				const name = data.get("name").trim();
+				const age = Number(data.get("age"));
+				const email = data.get("email").trim();
+				const bio = data.get("bio").trim();
+
+				if (!name || !email || !bio || !Number.isInteger(age) || age < 1 || age > 120) {
+					errorEl.textContent = "Please fill in all fields with valid values.";
+					return;
+				}
+
+				errorEl.textContent = "";
+				profiles.push({ name, age, email, bio });
+				renderProfiles();
+				form.reset();
+			});
+
+			renderProfiles();
+		</script>
 	</body>
 </html>
